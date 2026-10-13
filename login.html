@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QR Attendance - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="mobile-frame">
+    <div class="card" style="margin-top: 30%;">
+        <div class="card-header" style="text-align: center;">
+            <h2>EScanBai Access Portal</h2>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-target="signin-form">Sign In</div>
+            <div class="tab" data-target="signup-form">Sign Up</div>
+        </div>
+        <form id="signin-form" class="auth-form" action="dashboard.html" method="GET">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control"\>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign In to Dashboard</button>
+        </form>
+        <form id="signup-form" class="auth-form" action="dashboard.html" method="GET" style="display: none;">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Institutional Email</label>
+                <input type="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Create Password</label>
+                <input type="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Create Account</button>
+        </form>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
