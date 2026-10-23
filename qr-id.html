@@ -2,32 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EScanBai QR ID</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
+<body data-page="qr">
 <div class="mobile-frame">
-    <div class="card" style="margin-top: 20%; text-align: center;">
-        
-        <div class="card-header">
-            <h2>QR ID</h2>
-        </div>
-        <div id="qr-container" style="background-color: #ffffff; padding: 20px; border-radius: 12px; margin: 15px auto; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-            <img id="live-qr" src="" alt="Loading QR..." style="width: 200px; height: 200px; display: block;">
+    <nav class="app-nav" aria-label="Main">
+        <a href="dashboard.html" data-nav="profile">Profile</a>
+        <a href="dashboard.html#attendance-card" data-nav="attendance">Attendance</a>
+        <a href="qr-id.html" data-nav="qr">QR ID</a>
+        <a href="login.html" id="logout-link">Log Out</a>
+    </nav>
+
+    <div class="card card-center">
+        <div class="card-header"><h2>QR ID</h2></div>
+
+        <div id="qr-container">
+            <img id="live-qr" src="" alt="Loading QR...">
         </div>
 
-        <h3 id="student-name-display" style="font-size: 18px; margin-top: 10px; margin-bottom: 4px; color: var(--text-main);">Loading...</h3>
-        <p id="student-course-display" style="font-size: 13px; color: var(--text-muted); margin-bottom: 25px;">Loading...</p>
+        <h3 id="student-name-display" class="student-name">Loading...</h3>
+        <p id="student-course-display" class="student-meta">Loading...</p>
+        <p id="student-event-display" class="student-meta last"></p>
 
-        <div class="form-row">
+        <div class="button-stack">
+            <button type="button" id="scan-btn" class="btn btn-success">Simulate Scanner Entry</button>
             <a href="dashboard.html" class="btn btn-outline">Edit Profile</a>
+            <a href="dashboard.html#attendance-card" class="btn btn-outline">View Attendance History</a>
         </div>
 
+        <div id="scan-feedback" class="scan-feedback" role="status" aria-live="polite"></div>
     </div>
 </div>
-
 <script src="app.js"></script>
 </body>
 </html>
