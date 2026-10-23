@@ -2,50 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QR Attendance - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EScanBai - Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="login">
 <div class="mobile-frame">
-    <div class="card" style="margin-top: 30%;">
-        <div class="card-header" style="text-align: center;">
-            <h2>EScanBai Access Portal</h2>
+    <div class="card card-login">
+        <div class="card-header"><h2>EScanBai Access Portal</h2></div>
+
+        <div class="tabs" role="tablist">
+            <button type="button" class="tab active" data-target="signin-form" role="tab">Sign In</button>
+            <button type="button" class="tab" data-target="signup-form" role="tab">Sign Up</button>
         </div>
-        
-        <div class="tabs">
-            <div class="tab active" data-target="signin-form">Sign In</div>
-            <div class="tab" data-target="signup-form">Sign Up</div>
-        </div>
-        <form id="signin-form" class="auth-form" action="dashboard.html" method="GET">
+
+        <form id="signin-form" class="auth-form">
             <div class="form-group">
-                <label>Email</label>
-                <input type="email" class="form-control">
+                <label for="signin-email">Email</label>
+                <input type="email" id="signin-email" class="form-control" autocomplete="email" required>
             </div>
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control"\>
+                <label for="signin-password">Password</label>
+                <input type="password" id="signin-password" class="form-control" autocomplete="current-password" required>
             </div>
             <button type="submit" class="btn btn-primary">Sign In to Dashboard</button>
         </form>
-        <form id="signup-form" class="auth-form" action="dashboard.html" method="GET" style="display: none;">
+
+        <form id="signup-form" class="auth-form" hidden>
             <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" class="form-control">
+                <label for="signup-name">Full Name</label>
+                <input type="text" id="signup-name" class="form-control" autocomplete="name" required>
             </div>
             <div class="form-group">
-                <label>Email</label>
-                <input type="email" class="form-control">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" class="form-control" autocomplete="email" required>
             </div>
             <div class="form-group">
-                <label>Create Password</label>
-                <input type="password" class="form-control">
+                <label for="signup-password">Create Password</label>
+                <input type="password" id="signup-password" class="form-control" autocomplete="new-password" required>
             </div>
             <button type="submit" class="btn btn-success">Create Account</button>
         </form>
     </div>
 </div>
-
 <script src="app.js"></script>
 </body>
 </html>
