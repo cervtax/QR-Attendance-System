@@ -1,4 +1,4 @@
-/* EScanBai — auth.js: Sign In / Sign Up (browser storage until the database step) */
+
 (function () {
     'use strict';
     var E = window.EScan, $ = E.$, msg = $('auth-message');
@@ -9,7 +9,7 @@
         return Array.prototype.map.call(bytes, function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
     }
 
-    // Passwords are salted + hashed (SHA-256), never stored as plain text.
+
     function hash(pw, salt) {
         var text = salt + pw;
         if (!(window.crypto && crypto.subtle)) return Promise.resolve('b64:' + btoa(unescape(encodeURIComponent(text))));
@@ -24,7 +24,7 @@
         location.href = 'dashboard.html';
     }
 
-    // Tabs
+
     tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
             tabs.forEach(function (t) {
@@ -37,7 +37,7 @@
         });
     });
 
-    // Show / hide password
+
     document.querySelectorAll('[data-toggle-pw]').forEach(function (box) {
         box.addEventListener('change', function () {
             box.closest('form').querySelectorAll('[data-pw]').forEach(function (i) { i.type = box.checked ? 'text' : 'password'; });
