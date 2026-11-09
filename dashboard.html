@@ -3,86 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EScanBai Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0B0F19">
+    <title>EScanBai — Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="dashboard">
-<div class="mobile-frame">
-    <nav class="app-nav" aria-label="Main">
-        <a href="dashboard.html" data-nav="profile">Profile</a>
-        <a href="dashboard.html#attendance-card" data-nav="attendance">Attendance</a>
-        <a href="qr-id.html" data-nav="qr">QR ID</a>
-        <a href="login.html" id="logout-link">Log Out</a>
+
+<header class="topbar">
+    <div class="topbar-in">
+        <a class="brand" href="dashboard.html">EScan<span>Bai</span></a>
+        <div class="user">
+            <span class="avatar" id="user-avatar" aria-hidden="true"></span>
+            <span class="user-name" id="user-name"></span>
+            <button type="button" class="btn btn-ghost" id="logout-btn">Log Out</button>
+        </div>
+    </div>
+</header>
+
+<main class="shell">
+    <nav class="modes" role="tablist" aria-label="Dashboard options">
+        <button type="button" class="mode active" role="tab" aria-selected="true" data-panel="panel-qr"><strong>QRBai</strong><small>Create your QR ID</small></button>
+        <button type="button" class="mode" role="tab" aria-selected="false" data-panel="panel-scan"><strong>ScanBai</strong><small>Scan for attendance</small></button>
     </nav>
 
-    <header class="greeting">
-        <h1 id="greeting-title">EScanBai <span id="greeting-name"></span></h1>
-        <p>Welcome back! Manage your QR ID and check-ins here.</p>
-    </header>
+    <div class="grid">
+        <div>
 
-    <div class="card">
-        <div class="card-header">
-            <h2>Student</h2>
-            <p>Fill out your current credentials to have your QR ID.</p>
-        </div>
-        <form id="profile-form" autocomplete="off">
-            <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" class="form-control" value="" autocomplete="off" required>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="studentNo">Student Number</label>
-                    <input type="text" id="studentNo" class="form-control" value="" autocomplete="off" required>
+            <section id="panel-qr" class="panel">
+                <div class="card" id="qr-form-card">
+                    <div class="card-header"><h2>Student Information</h2></div>
+                    <form id="profile-form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" class="form-control" autocomplete="off" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentNo">Student Number</label>
+                                <input type="text" id="studentNo" class="form-control" autocomplete="off" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="course">Course Program</label>
+                                <input type="text" id="course" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="yearLevel">Year Level</label>
+                                <select id="yearLevel" class="form-control" required>
+                                    <option value="" selected disabled>Select year</option>
+                                    <option value="1st Year">1st Year</option>
+                                    <option value="2nd Year">2nd Year</option>
+                                    <option value="3rd Year">3rd Year</option>
+                                    <option value="4th Year">4th Year</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="section">Section</label>
+                                <input type="text" id="section" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="events">Events</label>
+                            <input type="text" id="events" class="form-control" autocomplete="off" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save &amp; Generate QR Code</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="course">Course Program</label>
-                    <input type="text" id="course" class="form-control" value="" autocomplete="off" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="yearLevel">Year Level</label>
-                    <select id="yearLevel" class="form-control" required>
-                        <option value="" selected disabled>Select year</option>
-                        <option value="1st Year">1st Year</option>
-                        <option value="2nd Year">2nd Year</option>
-                        <option value="3rd Year">3rd Year</option>
-                        <option value="4th Year">4th Year</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="section">Section</label>
-                    <input type="text" id="section" class="form-control" value="" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="events">Events</label>
-                    <input type="text" id="events" class="form-control" value="" autocomplete="off" required>
-                </div>
-            </div>
-            <div style="margin-top: 15px;">
-                <button type="submit" id="profile-submit" class="btn btn-primary">Save &amp; Generate QR Code</button>
-            </div>
-        </form>
-    </div>
 
-    <div class="card" id="attendance-card">
-        <div class="card-header">
-            <h2>Attendance History</h2>
-            <p>QR check-ins</p>
+                <div class="card center" id="qr-result" hidden>
+                    <div class="card-header"><h2>Your QR ID</h2></div>
+                    <div class="qr-box"><div id="qr-canvas"></div></div>
+                    <h3 class="student-name" id="qr-name"></h3>
+                    <p class="muted" id="qr-meta"></p>
+                    <p class="muted" id="qr-event"></p>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-success" id="qr-download">Download QR ID</button>
+                        <button type="button" class="btn btn-outline" id="qr-edit">Edit Details</button>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="panel-scan" class="panel" hidden>
+                <div class="card">
+                    <div class="card-header"><h2>Scan Attendance</h2></div>
+
+
+                    <details class="schedule" id="schedule">
+                        <summary>Scan Schedule <span class="badge idle" id="sched-state">Not set</span></summary>
+                        <div class="schedule-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="timeStart">Time In starts</label>
+                                    <input type="time" id="timeStart" class="form-control" value="00:00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="timeEnd">Time Out ends</label>
+                                    <input type="time" id="timeEnd" class="form-control" value="00:00">
+                                </div>
+                            </div>
+                            <p class="muted" id="sched-note"></p>
+                            <div class="btn-row">
+                                <button type="button" class="btn btn-primary" id="sched-save">Save Schedule</button>
+                                <button type="button" class="btn btn-outline" id="sched-clear">Remove Schedule</button>
+                            </div>
+                        </div>
+                    </details>
+
+                    <div class="seg" role="tablist" aria-label="Scan type">
+                        <button type="button" class="seg-btn active" data-type="IN">Time In</button>
+                        <button type="button" class="seg-btn" data-type="OUT">Time Out</button>
+                    </div>
+
+                    <div class="viewfinder" id="viewfinder">
+                        <video id="cam" playsinline muted></video>
+                        <div class="frame"><i></i></div>
+                        <p class="vf-idle">Camera is off</p>
+                    </div>
+                    <canvas id="snap" hidden></canvas>
+
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-primary" id="cam-toggle">Start Scanner</button>
+                        <label class="btn btn-outline">Scan from Image<input type="file" id="img-input" accept="image/*" hidden></label>
+                    </div>
+
+                    <div id="scan-result" class="result" hidden aria-live="polite">
+                        <div class="result-top"><h3 id="r-name"></h3><span id="r-type" class="badge"></span></div>
+                        <dl>
+                            <dt>Student No.</dt><dd id="r-id"></dd>
+                            <dt>Course</dt><dd id="r-course"></dd>
+                            <dt>Event</dt><dd id="r-event"></dd>
+                            <dt>Time</dt><dd id="r-time"></dd>
+                        </dl>
+                        <p class="r-status" id="r-status"></p>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="table-container">
-            <table class="audit-table">
-                <thead><tr><th>Date</th><th>Time</th><th>Event</th><th>Status</th></tr></thead>
-                <tbody id="attendance-log"></tbody>
-            </table>
-        </div>
-        <div class="history-actions">
-            <span id="history-count" class="history-count"></span>
-            <button type="button" id="clear-history-btn" class="btn btn-danger-outline">Clear History</button>
-        </div>
+
+        <section class="card" id="log-card">
+            <div class="log-head">
+                <div><h2>Attendance Log</h2><p class="muted" id="log-count"></p></div>
+                <button type="button" class="btn btn-danger" id="log-clear">Clear</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Student</th><th>Event</th><th>Type</th><th>When</th></tr></thead>
+                    <tbody id="log-body"></tbody>
+                </table>
+            </div>
+        </section>
     </div>
-</div>
-<script src="app.js"></script>
+</main>
+
+<div id="toast-root" class="toast-root" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/dashboard.js"></script>
 </body>
 </html>
