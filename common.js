@@ -1,4 +1,4 @@
-/* EScanBai — common.js: storage helpers, toast, session guard (loaded on every page) */
+
 (function (w) {
     'use strict';
 
@@ -32,7 +32,6 @@
 
     w.EScan = { K: K, $: $, read: read, write: write, toast: toast, session: session };
 
-    // Page guard: send people to the right page based on sign-in state
     var page = document.body.getAttribute('data-page');
     var user = session();
     if (page === 'index') location.replace(user ? 'dashboard.html' : 'login.html');
