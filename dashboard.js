@@ -9,7 +9,6 @@
     var cam = $('cam'), vf = $('viewfinder'), snap = $('snap'), toggle = $('cam-toggle');
     var ctx = snap.getContext('2d', { willReadFrequently: true });
 
-    /* ---------- Header: logged-in user ---------- */
     $('user-name').textContent = me.name;
     $('user-avatar').textContent = (me.name || '?').charAt(0).toUpperCase();
     $('logout-btn').addEventListener('click', function () {
@@ -18,7 +17,6 @@
         location.href = 'login.html';
     });
 
-    /* ---------- QRBai / ScanBai switch ---------- */
     var modes = document.querySelectorAll('.mode'), panels = document.querySelectorAll('.panel');
     modes.forEach(function (m) {
         m.addEventListener('click', function () {
@@ -33,7 +31,6 @@
         });
     });
 
-    /* ---------- QRBai ---------- */
     function clean(v) { return String(v || '').replace(/\|/g, '/').trim(); }
     function getProfile() { return E.read(K.profiles, {})[me.email] || null; }
     function payload(p) { return ['EScanBai', p.studentNo, p.fullName, p.course, p.yearLevel, p.section, p.events].join('|'); }
@@ -83,7 +80,6 @@
         a.click();
     });
 
-    /* ---------- ScanBai: Time In / Time Out ---------- */
     document.querySelectorAll('.seg-btn').forEach(function (b) {
         b.addEventListener('click', function () {
             scanType = b.getAttribute('data-type');
@@ -174,7 +170,7 @@
         if (navigator.vibrate) navigator.vibrate(120);
     }
 
-    // Scanned info card (below the scan bar). Uses textContent so QR data can never inject HTML.
+
     function showResult(s, cls, msg, rec) {
         var box = $('scan-result'), badge = $('r-type'), when = (rec && rec.ts) || new Date();
         box.hidden = false;
@@ -191,7 +187,6 @@
         E.toast(msg, cls ? 'error' : 'success');
     }
 
-    /* ---------- Attendance log ---------- */
     function cell(tr, text, sub) {
         var td = document.createElement('td');
         td.textContent = text;
@@ -230,7 +225,6 @@
         renderLog();
     });
 
-    /* ---------- Start ---------- */
     var saved = getProfile();
     if (saved) showQR(saved); else showForm(null);
     renderLog();
